@@ -19,12 +19,22 @@ class BankAccountTest {
         bankAccount.withdraw(100);
 
         assertEquals(100, bankAccount.getBalance());
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount.withdraw(1000));
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount.withdraw(-100));
     }
 
     @Test
     void isEmailValidTest(){
         assertTrue(BankAccount.isEmailValid( "a@b.com"));
-        assertFalse( BankAccount.isEmailValid(""));
+        assertFalse(BankAccount.isEmailValid( "abc-@blah.com" ));
+        assertFalse(BankAccount.isEmailValid( "" ));
+        assertFalse(BankAccount.isEmailValid( "abc..def@blah.com" ));
+        assertFalse(BankAccount.isEmailValid( ".abc@blah.com" ));
+        assertFalse(BankAccount.isEmailValid( "abc#def@blah.com" ));
+        assertFalse(BankAccount.isEmailValid( "abc@mail.c" ));
+        assertFalse(BankAccount.isEmailValid( "abc@mail#archive.com" ));
+        assertFalse(BankAccount.isEmailValid( "abc@mail" ));
+        assertFalse(BankAccount.isEmailValid( "abc@mail..com" ));
     }
 
     @Test

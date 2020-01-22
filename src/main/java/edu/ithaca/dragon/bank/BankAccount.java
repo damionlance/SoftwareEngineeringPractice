@@ -28,6 +28,8 @@ public class BankAccount {
 
     /**
      * @post reduces the balance by amount if amount is non-negative and smaller than balance
+     * @throws IllegalArgumentException if amount is non-negative
+     * @throws IllegalArgumentException if amount is bigger than balance
      */
     public void withdraw (double amount)  {
         balance -= amount;
