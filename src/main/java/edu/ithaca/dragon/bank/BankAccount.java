@@ -32,13 +32,25 @@ public class BankAccount {
      * @throws IllegalArgumentException if amount is bigger than balance
      */
     public void withdraw (double amount)  {
+        if (amount > balance || amount < 0){
+            throw new IllegalArgumentException("Amount " + amount + " is invalid, cannot withdraw amount");
+        }
         balance -= amount;
-
     }
 
 
     public static boolean isEmailValid(String email){
         if (email.indexOf('@') == -1){
+            return false;
+        }else if (email.indexOf("-@") != -1){
+            return false;
+        }else if (email.length() == 0){
+            return false;
+        }else if (email.indexOf("..") != -1){
+            return false;
+        }else if (email.indexOf(".") <= 0 || email.length() - email.indexOf(".") <= 3){
+            return false;
+        }else if (email.indexOf("#") != -1){
             return false;
         }
         else {
