@@ -31,7 +31,7 @@ class BankAccountTest {
         assertFalse(BankAccount.isEmailValid( "abc..def@blah.com" )); // invalid case (partition of "cannot have more than 1 . consecutively"; not border case)
         assertFalse(BankAccount.isEmailValid( ".abc@blah.com" )); // invalid case (partition of "cannot begin with a ."; not border case)
         assertFalse(BankAccount.isEmailValid( "abc#def@blah.com" )); // invalid case (partition of "cannot have special characters"; not border case)
-        assertFalse(BankAccount.isEmailValid( "abc@mail.c" )); // invalid case (partition of "after last . has to have at least 3 characters"; not border case)
+        assertFalse(BankAccount.isEmailValid( "abc@mail.c" )); // invalid case (partition of "after last . has to have at least 2 characters"; not border case)
         assertFalse(BankAccount.isEmailValid( "abc@mail#archive.com" )); // invalid case (partition of "cannot have special characters"; not border case)
         assertFalse(BankAccount.isEmailValid( "abc@mail" )); // invalid case (partition of "has to have at least 1 ."; not border case)
         assertFalse(BankAccount.isEmailValid( "abc@mail..com" )); // invalid case (partition of "cannot have more than 1 . consecutively"; not border case)

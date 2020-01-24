@@ -50,7 +50,7 @@ public class BankAccount {
             return false;
         }else if (email.indexOf("..") != -1){
             return false;
-        }else if (email.indexOf(".") <= 0 || email.length() - email.lastIndexOf(".") <= 3){
+        }else if (email.indexOf(".") <= 0 || email.length() - email.lastIndexOf(".") < 3){
             return false;
         }else if (email.indexOf("#") != -1){
             return false;
