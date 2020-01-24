@@ -34,27 +34,38 @@ public class BankAccount {
     public void withdraw (double amount)  {
         if (amount > balance || amount < 0){
             throw new IllegalArgumentException("Amount " + amount + " is invalid, cannot withdraw amount");
+        }else {
+            balance -= amount;
         }
-        balance -= amount;
     }
 
 
     public static boolean isEmailValid(String email){
-        if (email.indexOf('@') == -1){
+        if (email.length() == 0){
+            return false;
+        }
+        if (email.indexOf('@') <= 0 || email.indexOf('@') != email.lastIndexOf('@')){
             return false;
         }else if (email.indexOf("-@") != -1){
             return false;
-        }else if (email.length() == 0){
-            return false;
         }else if (email.indexOf("..") != -1){
             return false;
-        }else if (email.indexOf(".") <= 0 || email.length() - email.indexOf(".") <= 3){
+        }else if (email.indexOf(".") <= 0 || email.length() - email.lastIndexOf(".") <= 3){
             return false;
         }else if (email.indexOf("#") != -1){
             return false;
         }
-        else {
-            return true;
+        int item;
+        for(int i = 0; i < email.length(); i++){
+            item = (int) email.charAt(i);
+            if (item <= 44){
+                return false;
+            }else if(item > 122){
+                return false;
+            }else if(!(item == 45 || item == 46 || item == 95 || item == 64 || (item >= 97 && item < 123) || (item >= 65 && item < 91))){
+                return false;
+            }
         }
+        return true;
     }
 }
