@@ -9,18 +9,35 @@ class BankAccountTest {
     @Test
     void getBalanceTest() {
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
+        assertEquals(200, bankAccount.getBalance()); // Case of non-zero balance
 
-        assertEquals(200, bankAccount.getBalance());
+        BankAccount testAccount = new BankAccount("a@b.com", 0);
+        assertEquals(0, testAccount.getBalance()); // Case of 0 balance
     }
 
     @Test
-    void withdrawTest() {
+    void withdrawTest() throws InsufficientFundsException {
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
         bankAccount.withdraw(100);
 
         assertEquals(100, bankAccount.getBalance());
-        assertThrows(IllegalArgumentException.class, ()-> bankAccount.withdraw(1000)); // invalid case (partition of amount > balance; not border case)
+        assertThrows(InsufficientFundsException.class, ()-> bankAccount.withdraw(1000)); // invalid case (partition of amount > balance; not border case)
         assertThrows(IllegalArgumentException.class, ()-> bankAccount.withdraw(-100)); // invalid case (partition of amount < 0; not border case)
+
+        // Smart Tests:
+        BankAccount testAccount = new BankAccount("blah@bleh.com", 500);
+        testAccount.withdraw(500);
+
+        assertEquals(0, testAccount.getBalance());
+
+        assertThrows(InsufficientFundsException.class, ()-> testAccount.withdraw(1000)); // invalid case (partition of amount > balance; not border case)
+        assertThrows(IllegalArgumentException.class, ()-> testAccount.withdraw(-100)); // invalid case (partition of amount < 0; not border case)
+
+        BankAccount newBankAccount = new BankAccount("a@b.com", 500);
+
+        assertThrows(IllegalArgumentException.class, ()-> newBankAccount.withdraw(.001)); //invalid case (partition of withdraw amount less than .01)
+        assertThrows(IllegalArgumentException.class, ()-> newBankAccount.withdraw(0)); // invalid case (partition of withdraw amount 0)
+
     }
 
     @Test
