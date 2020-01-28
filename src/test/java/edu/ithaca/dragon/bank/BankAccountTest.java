@@ -14,12 +14,12 @@ class BankAccountTest {
     }
 
     @Test
-    void withdrawTest() {
+    void withdrawTest() throws InsufficientFundsException{
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
         bankAccount.withdraw(100);
 
         assertEquals(100, bankAccount.getBalance());
-        assertThrows(IllegalArgumentException.class, ()-> bankAccount.withdraw(1000)); // invalid case (partition of amount > balance; not border case)
+        assertThrows(InsufficientFundsException.class, ()-> bankAccount.withdraw(1000)); // invalid case (partition of amount > balance; not border case)
         assertThrows(IllegalArgumentException.class, ()-> bankAccount.withdraw(-100)); // invalid case (partition of amount < 0; not border case)
     }
 

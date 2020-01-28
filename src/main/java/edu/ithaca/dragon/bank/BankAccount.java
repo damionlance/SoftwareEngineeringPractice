@@ -1,5 +1,9 @@
 package edu.ithaca.dragon.bank;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+
 public class BankAccount {
 
     private String email;
@@ -28,15 +32,25 @@ public class BankAccount {
 
     /**
      * @post reduces the balance by amount if amount is non-negative and smaller than balance
-     * @throws IllegalArgumentException if amount is non-negative
-     * @throws IllegalArgumentException if amount is bigger than balance
+     * @throws IllegalArgumentException if amount is non-negative or argument has more precision than to the hundredths place
+     * @throws InsufficientFundsException if amount is bigger than balance
      */
-    public void withdraw (double amount)  {
-        if (amount > balance || amount < 0){
-            throw new IllegalArgumentException("Amount " + amount + " is invalid, cannot withdraw amount");
-        }else {
-            balance -= amount;
+    public void withdraw (double amount) throws InsufficientFundsException {
+        if (amount > balance){
+            throw new InsufficientFundsException("Too small a balance");
         }
+        if (amount < 0) {
+            throw new IllegalArgumentException("Cannot withdraw a negative amount");
+        }
+        String amountString = "" + amount;
+        if (amountString.indexOf(".") != -1) {
+            String places = amountString.substring(amountString.indexOf("."), amountString.length() - 1);
+            if (places.length() > 2){
+                throw new IllegalArgumentException("Cannot have more than 0.01 precision");
+            }
+        }
+        balance -= amount;
+        balance = (double) Math.round(balance * 100.0) / 100.0;
     }
 
 
