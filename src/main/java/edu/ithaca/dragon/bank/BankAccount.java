@@ -1,9 +1,5 @@
 package edu.ithaca.dragon.bank;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
-
 public class BankAccount {
 
     private String email;
