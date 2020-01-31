@@ -32,10 +32,10 @@ public class BankAccount {
      * @throws InsufficientFundsException if amount is bigger than balance
      */
     public void withdraw (double amount) throws InsufficientFundsException {
-        if (amount > balance){
+        if (amount > balance){ // Cannot withdraw an amount more than the balance
             throw new InsufficientFundsException("Too small a balance");
         }
-        if (amount < 0) {
+        if (amount < 0) { // Cannot withdraw an amount less than 0
             throw new IllegalArgumentException("Cannot withdraw a negative amount");
         }
         String amountString = "" + amount;
@@ -77,5 +77,26 @@ public class BankAccount {
             }
         }
         return true;
+    }
+    /**
+    * Makes sure amount is a valid monetary amount. (No more than 2 decimal places and is positive)
+    **/
+    public static boolean isAmountValid(double checkNum){
+        if(checkNum <= 0){
+            return false;
+        }
+        String checkNumStr = "" + checkNum;
+        String[] delimitedStr = checkNumStr.split(".");
+        int indexOfDot = checkNumStr.indexOf('.');
+        if(indexOfDot == -1){
+            return true;
+        }
+        else if(checkNumStr.length() - indexOfDot - 1 > 2){
+            return false;
+        }
+        else{
+            return true;
+        }
+
     }
 }
