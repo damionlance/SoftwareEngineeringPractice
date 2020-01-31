@@ -104,4 +104,21 @@ public class BankAccount {
         }
 
     }
+
+    /**
+     * adds money to a bank account
+     * @param depositAmount
+     */
+    public static void deposit(double depositAmount){
+
+    }
+
+    /**
+     * moves money from one account to another
+     * @param accountToTransfer
+     * @param amountToTransfer
+     */
+    public static void transfer(BankAccount accountToTransfer, double amountToTransfer){
+
+    }
 }

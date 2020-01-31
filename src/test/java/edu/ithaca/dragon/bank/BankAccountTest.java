@@ -61,4 +61,13 @@ class BankAccountTest {
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("blah@blah.co", 100.0001));
     }
 
+    @Test
+    void depositTest(){
+
+    }
+
+    @Test
+    void transferTest(){
+
+    }
 }
