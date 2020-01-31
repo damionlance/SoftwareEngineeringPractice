@@ -14,6 +14,16 @@ class BankAccountTest {
     }
 
     @Test
+    void isAmountValidTest() {
+        assertTrue(BankAccount.isAmountValid(1.00)); // valid case, part of positive and less than 3 decimal places
+        assertTrue(BankAccount.isAmountValid(.01)); // valid border case, part of positive and less than 3 decimal places
+        assertFalse(BankAccount.isAmountValid(-.01)); // invalid border case, part of negative
+        assertFalse(BankAccount.isAmountValid(-1.00)); // invalid case, part of negative
+        assertFalse(BankAccount.isAmountValid(.001)); // invalid case, part of non-valid decimal part
+        assertFalse(BankAccount.isAmountValid(-.001)); // invalid case, part of non-valid decimal part and negative
+    }
+
+    @Test
     void withdrawTest() throws InsufficientFundsException{
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
         bankAccount.withdraw(100);
@@ -21,6 +31,7 @@ class BankAccountTest {
         assertEquals(100, bankAccount.getBalance());
         assertThrows(InsufficientFundsException.class, ()-> bankAccount.withdraw(1000)); // invalid case (partition of amount > balance; not border case)
         assertThrows(IllegalArgumentException.class, ()-> bankAccount.withdraw(-100)); // invalid case (partition of amount < 0; not border case)
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount.withdraw(.0001));
     }
 
     @Test
@@ -45,6 +56,9 @@ class BankAccountTest {
         assertEquals(200, bankAccount.getBalance());
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
+
+        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("blah@blah.co", -100));
+        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("blah@blah.co", 100.0001));
     }
 
 }
